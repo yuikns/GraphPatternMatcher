@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+
+    <constant name="struts.custom.i18n.resources" value="globalMessages"/>
+    <!-- <constant name="struts.locale " value="zh_CN" /> -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.objectFactory.spring.autoWire" value="type"/>
+    <constant name="struts.ui.theme" value="xhtml"/>
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.multipart.parser" value="jakarta"/>
+    <constant name="struts.multipart.maxSize" value="10000000"/>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.url.includeParams" value="get"/>
+    <constant name="struts.configuration.xml.reload" value="false"/>
+    <constant name="struts.objectFactory.spring.autoWire" value="name"/>
+    <constant name="struts.multipart.maxSize" value="90879300"/>
+    <constant name="struts.multipart.saveDir" value="/tmp"/>
+    <!-- use pell/cos/jakarta as uploader -->
+    <constant name="struts.multipart.parser" value="pell"/>
+
+
+    <package name="default" extends="struts-default">
+        <interceptors>
+            <interceptor-stack name="default">
+                <!-- token -->
+                <!-- <interceptor-ref name="token" /> -->
+                <interceptor-ref name="timer"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="validation"/>
+            </interceptor-stack>
+            <!-- 国际化 -->
+            <interceptor name="i18n"
+                         class="com.opensymphony.xwork2.interceptor.I18nInterceptor"/>
+        </interceptors>
+        <default-interceptor-ref name="default"/>
+        <global-results>
+            <result name="userException">${dynamicUrl}</result>
+            <!-- <result name="dynamic">${dynamicUrl}</result> -->
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping result="userException"
+                               exception="java.lang.Exception"/>
+        </global-exception-mappings>
+    </package>
+
+
+    <package name="ajax" extends="default" namespace="/">
+        <action name="ajax_*_*" method="{2}" class="{1}Action">
+        </action>
+    </package>
+
+    <package name="upload" extends="default" namespace="/">
+        <action name="upload_*_*" method="{2}" class="{1}Action">
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg</param>
+                <param name="maximumSize">90879300</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+    </package>
+
+    <package name="general" extends="default" namespace="/">
+        <action name="*_*" method="{2}" class="{1}Action">
+            <result name="dynamic">${dynamicUrl}</result>
+            <exception-mapping result="userException"
+                               exception="java.lang.Exception"/>
+        </action>
+    </package>
+
+</struts>

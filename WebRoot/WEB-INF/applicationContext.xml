@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- beans for struts framework -->
+	<bean id="JsonResult" class="com.googlecode.jsonplugin.JSONResult"></bean>
+	<bean id="JsonInterceptor" class="com.googlecode.jsonplugin.JSONInterceptor"></bean>
+
+	<!-- data access may useless at this project -->
+
+
+	<!-- services -->
+	<!-- <bean id="UserinfoService" class="service.Impl.UserinfoService" -->
+	<!-- abstract="false" lazy-init="default" autowire="default" -->
+	<!-- p:userinfoDAO-ref="UserinfoDAO"> -->
+	<!-- </bean> -->
+	<bean id="ImageSearchService" class="com.argcv.gpm.service.ImageSearchServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</bean>
+
+
+	<!-- actions -->
+
+	<bean id="SearchAction" class="com.argcv.gpm.action.SearchAction">
+		<property name="imageSearchService" ref="ImageSearchService"></property>
+	</bean>
+	
+	<bean id="AjaxTestAction" class="com.argcv.gpm.action.AjaxTestAction">
+	</bean>
+	
+	
+
+</beans>
+

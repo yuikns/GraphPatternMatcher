@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="GraphPatternMatcher"
+  id="myeclipse.1385060580029"
+  context-root="/GraphPatternMatcher"
+  j2ee-spec="6.0"
+  archive="GraphPatternMatcher.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
